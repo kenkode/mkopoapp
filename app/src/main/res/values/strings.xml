@@ -1,6 +1,22 @@
 <resources>
-    <string name="app_name">Mkopo</string>
+    <string name="app_name">Sisi</string>
     <string name="title_activity_">Activity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_summary">SummaryActivity</string>
+    <string name="title_activity_loan_application">LoanApplicationActivity</string>
+    <string name="title_activity_apply_loan">ApplyLoanActivity</string>
+    <string name="title_activity_loans">LoansActivity</string>
+    <string name="title_activity_loan_details">LoanDetailsActivity</string>
+    <string name="title_activity_repayment">RepaymentActivity</string>
+
+    <string-array name="mpesa_payment">
+        <item>1.Go to Mpesa menu</item>
+        <item>2.Click on lipa na Mpesa</item>
+        <item>3.Click on buy goods and Services</item>
+        <item>4.Enter till number 203522</item>
+        <item>5.Enter the amount to pay</item>
+        <item>6.Enter your Mpesa pin and Confirm request</item>
+        <item>7.You will receive an SMS from Mpesa to confirm the transaction</item>
+    </string-array>
 </resources>

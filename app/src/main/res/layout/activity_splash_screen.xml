@@ -16,30 +16,31 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16sp"
-        android:text="Mkopo App"
+        android:text="Sisi App"
         android:textColor="@color/colorPrimary"
         android:textStyle="italic" />
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="108dp"
+        android:layout_width="80dp"
         android:layout_height="108dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/logo2"
-        tools:ignore="ContentDescription" />
+        android:foregroundGravity="center"
+        android:src="@drawable/logo3"
+        tools:ignore="ContentDescription"
+        android:background="#fff"/>
 
     <ProgressBar
         android:id="@+id/logo_progress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="108dp"
         android:layout_height="108dp"
-        android:layout_alignLeft="@+id/logo"
-        android:layout_alignStart="@+id/logo"
-        android:layout_alignTop="@+id/logo"
         android:background="@drawable/progress_background"
         android:max="100"
         android:progress="0"
-        android:progressDrawable="@drawable/logo_wrapper" />
+        android:progressDrawable="@drawable/logo_wrapper"
+        android:layout_alignTop="@+id/logo"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,7 +48,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16sp"
-        android:text="Welcome to Mkopo App"
+        android:text="Welcome to Sisi App"
         android:textColor="@color/colorPrimary" />
 
 </RelativeLayout>

@@ -28,6 +28,7 @@ import com.example.lixnet.mkopo.helpers.Token;
 import com.example.lixnet.mkopo.models.UserAuth;
 import com.example.lixnet.mkopo.retrofit.RetrofitInterface;
 import com.example.lixnet.mkopo.retrofit.ServiceGenerator;
+import com.example.lixnet.mkopo.services.IService;
 
 public class LoginActivity extends AppCompatActivity implements Internet.ConnectivityReceiverListener{
     private static final String TAG = "LoginActivity";
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements Internet.Connect
 
         if (preference.isUserLogged()) {
             Token.setToken(preference.getToken());
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, SummaryActivity.class));
             finish();
         }
 
@@ -130,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements Internet.Connect
                 // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SummaryActivity.class);
                 //Intent intent = new Intent(GESplashActivity.this, GasExpress.class);
                 startActivity(intent);
 
@@ -231,7 +232,8 @@ public class LoginActivity extends AppCompatActivity implements Internet.Connect
                     preference.setUser(id, name, phn, email);
                     Token.setToken(userAuth.getToken());
                     preference.setToken(userAuth.getToken());
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startService(new Intent(LoginActivity.this, IService.class));
+                    Intent intent = new Intent(LoginActivity.this, SummaryActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
@@ -261,7 +263,7 @@ public class LoginActivity extends AppCompatActivity implements Internet.Connect
             preference.setUser(id, name, phn, email);
             Token.setToken(userAuth.getToken());
             preference.setToken(userAuth.getToken());
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, SummaryActivity.class);
             startActivity(intent);
             finish();
         } else if (userAuth.getStatus().equals("DNE")) {

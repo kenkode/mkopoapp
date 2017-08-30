@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tols="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@android:color/white"
+    android:layout_height="match_parent"
+    android:padding="4sp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/loan_layout"
+        android:padding="4dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/apply_loan_card"
+            android:padding="10dp"
+            android:layout_marginLeft="2dp"
+            android:backgroundTint="@android:color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/apply_loan_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:padding="37dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/apply3" />
+
+                <TextView
+                    android:id="@+id/apply_loan_text"
+                    android:layout_below="@+id/apply_loan_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16sp"
+                    android:layout_marginStart="16sp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:text="Apply Loan"
+                    android:textStyle="bold" />
+
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/loan_card"
+            android:layout_toRightOf="@+id/apply_loan_card"
+            android:backgroundTint="@android:color/white">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/loan_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:padding="33dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/loan2" />
+
+                <TextView
+                    android:id="@+id/loan_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/loan_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16sp"
+                    android:layout_marginStart="16sp"
+                    android:text="My Loans"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/loan_card"
+            android:backgroundTint="@android:color/white">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/loan_status_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:padding="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/approval3" />
+
+                <TextView
+                    android:id="@+id/loan_status_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/loan_status_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16sp"
+                    android:layout_marginStart="16sp"
+                    android:text="Loan Status"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/user_layout"
+        android:padding="4dp"
+        android:layout_below="@+id/loan_layout"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loan_summary_card"
+            android:padding="10dp"
+            android:layout_marginLeft="2dp"
+            android:backgroundTint="@android:color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/loan_summary_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:padding="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/summary" />
+
+                <TextView
+                    android:id="@+id/loan_summary_text"
+                    android:layout_below="@+id/loan_summary_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16sp"
+                    android:layout_marginStart="16sp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:text="Loan Summary"
+                    android:textStyle="bold" />
+
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/profile_card"
+            android:layout_toRightOf="@+id/loan_summary_card"
+            android:backgroundTint="@android:color/white">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:padding="33dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/user1" />
+
+                <TextView
+                    android:id="@+id/profile_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16sp"
+                    android:layout_marginStart="16sp"
+                    android:text="Profile"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/profile_card"
+            android:backgroundTint="@android:color/white">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/logout_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:padding="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/logout1" />
+
+                <TextView
+                    android:id="@+id/logout_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/logout_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16sp"
+                    android:layout_marginStart="16sp"
+                    android:text="Logout"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

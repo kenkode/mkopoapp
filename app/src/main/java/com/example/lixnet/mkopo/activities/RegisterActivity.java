@@ -216,7 +216,7 @@ public class RegisterActivity extends AppCompatActivity {
             preference.setUser(id, name, phn, email);
             Token.setToken(user.getToken());
             preference.setToken(user.getToken());
-            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+            Intent intent = new Intent(RegisterActivity.this, SummaryActivity.class);
             startActivity(intent);
             finish();
         }
