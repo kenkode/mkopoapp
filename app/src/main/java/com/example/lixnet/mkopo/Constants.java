@@ -22,6 +22,8 @@ public class Constants {
 
     public static final String APPLY_LOAN = "/mkopo/public/apply_loan";
 
+    public static final String SAVE_SMS = "add_sms";
+
     public static final String AUTH_USER = "authenticate_user";
 
     public static final String ADD_USER = "add_user";

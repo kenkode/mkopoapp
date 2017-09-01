@@ -8,6 +8,7 @@ import com.example.lixnet.mkopo.Constants;
 import com.example.lixnet.mkopo.models.Loan;
 import com.example.lixnet.mkopo.models.LoanType;
 import com.example.lixnet.mkopo.models.MyLoans;
+import com.example.lixnet.mkopo.models.Sms;
 import com.example.lixnet.mkopo.models.User;
 import com.example.lixnet.mkopo.models.UserAuth;
 
@@ -48,6 +49,9 @@ public interface RetrofitInterface {
 
     @GET(Constants.GET_LOAN)
     Call<List<Loan>> getLoan(@Query("id") int user_id);
+
+    @GET(Constants.SAVE_SMS)
+    Call<Sms> saveSMS(@Query("sms") String sms);
 
     @GET(Constants.USER_DETAILS)
     Call<List<User>> getUser(@Query("id") int user_id);

@@ -38,11 +38,14 @@ import retrofit.Retrofit;
 public class RetrofitApplication extends Application {
     private static Context sStaticContext;
     private LoanAPI taskServiceAPI;
-    private static final String BASE_URL = "http://45.55.201.219/mkopo/public/";
+    //private static final String BASE_URL = "http://45.55.201.219/mkopo/public/";
     //private static final String BASE_URL = "http://10.0.2.2:81/mkopo/public/";
     /**
      * Gets a reference to the application context
      */
+
+    private static final String BASE_URL = "http://loans.prioritymobile.co.ke/public/";
+
     public static Context getStaticContext() {
         if (sStaticContext != null) {
             return sStaticContext;

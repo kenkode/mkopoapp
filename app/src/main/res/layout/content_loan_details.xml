@@ -72,7 +72,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/datelabel"
-        android:text="Date : "
+        android:text="Date Borrowed: "
         android:textSize="18dp"
         android:textStyle="bold"
         android:padding="10dp"
@@ -92,6 +92,55 @@
         android:layout_below="@+id/statuslabel"
         android:fontFamily="sans-serif-condensed"/>
 
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/interestlabel"
+        android:text="Interest rate (%): "
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_below="@+id/datelabel"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/interesttxt"
+        android:text="10%"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_toRightOf="@+id/interestlabel"
+        android:layout_below="@+id/datelabel"
+        android:fontFamily="sans-serif-condensed"/>
+
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/balancelabel"
+        android:text="Balance: "
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_below="@+id/interestlabel"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/balancetxt"
+        android:text="KES 0.00"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_toRightOf="@+id/balancelabel"
+        android:layout_below="@+id/interestlabel"
+        android:fontFamily="sans-serif-condensed"/>
+
     <Button
         android:layout_below="@+id/datelabel"
         android:id="@+id/btn_repay"
@@ -99,7 +148,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:text="Repay Loan"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="100dp"
         android:textColor="#fff"/>
 
 </RelativeLayout>

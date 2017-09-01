@@ -37,7 +37,7 @@ public class LoanDetailsActivity extends AppCompatActivity {
 
     private GEPreference preference;
 
-    TextView amounttxt,datetxt;
+    TextView amounttxt,datetxt,balancetxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +52,15 @@ public class LoanDetailsActivity extends AppCompatActivity {
 
         amounttxt = (TextView)findViewById(R.id.amounttxt);
         datetxt = (TextView)findViewById(R.id.datetxt);
+        balancetxt = (TextView)findViewById(R.id.balancetxt);
 
         DecimalFormat formatter = new DecimalFormat("#,##0.00");
         String amt = formatter.format(amount);
+        String bal = formatter.format((amount * 0.1) + amount);
 
         amounttxt.setText("KES "+amt);
         datetxt.setText(date);
+        balancetxt.setText("KES "+bal);
 
         preference = new GEPreference(this);
 

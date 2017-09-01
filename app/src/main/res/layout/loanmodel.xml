@@ -23,7 +23,7 @@
             android:layout_alignParentLeft="true"
             android:padding="12dp"
             android:fontFamily="serif"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:text="KES 0.00"
             android:textColor="#000"/>
 
@@ -35,7 +35,7 @@
             android:layout_centerVertical="true"
             android:text="Approved"
             android:fontFamily="serif"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:textColor="#006400"
             android:padding="12dp" />
 

@@ -6,7 +6,7 @@ package com.example.lixnet.mkopo.models;
 
 public class MyLoans {
     int id;
-    double amount;
+    double loan_amount;
     int status;
     String reason;
     String created_at;
@@ -19,12 +19,12 @@ public class MyLoans {
         this.id = id;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getLoan_amount() {
+        return loan_amount;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setLoan_amount(double loan_amount) {
+        this.loan_amount = loan_amount;
     }
 
     public int getStatus() {

@@ -70,7 +70,7 @@ public class LoanAdapter  extends BaseAdapter {
                 Intent intent = new Intent(context, LoanDetailsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("id",loan.getId());
-                intent.putExtra("amount",loan.getAmount());
+                intent.putExtra("amount",loan.getLoan_amount());
                 intent.putExtra("status",loan.getStatus());
                 intent.putExtra("date",loan.getCreated_at());
                 context.startActivity(intent);
@@ -79,7 +79,7 @@ public class LoanAdapter  extends BaseAdapter {
 
 
         DecimalFormat formatter = new DecimalFormat("#,##0.00");
-        String amt = formatter.format(loan.getAmount());
+        String amt = formatter.format(loan.getLoan_amount());
         amount.setText("KES "+amt);
 
         return convertView;
