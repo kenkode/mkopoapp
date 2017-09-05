@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.lixnet.mkopo.activities.ProfileActivity"
+    tools:showIn="@layout/activity_profile">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header"
+        android:text="Profile"
+        android:gravity="center"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/toolbar"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/namelabel"
+        android:text="Full names : "
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_below="@+id/header"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nametxt"
+        android:text="Name"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_toRightOf="@+id/namelabel"
+        android:layout_below="@+id/header"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/emaillabel"
+        android:text="Email : "
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_below="@+id/namelabel"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailtxt"
+        android:text="Email"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_toRightOf="@+id/emaillabel"
+        android:layout_below="@+id/namelabel"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/phonelabel"
+        android:text="Phone: "
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_below="@+id/emaillabel"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phonetxt"
+        android:text="0712345678"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_toRightOf="@+id/phonelabel"
+        android:layout_below="@+id/emaillabel"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/idnolabel"
+        android:text="Identity Number: "
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_below="@+id/phonelabel"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/idnottxt"
+        android:text="12345678"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_toRightOf="@+id/idnolabel"
+        android:layout_below="@+id/phonelabel"
+        android:fontFamily="sans-serif-condensed"/>
+
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/genderlabel"
+        android:text="Gender: "
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_below="@+id/idnolabel"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gendertxt"
+        android:text="Male"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_toRightOf="@+id/genderlabel"
+        android:layout_below="@+id/idnolabel"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <Button
+        android:layout_below="@+id/genderlabel"
+        android:id="@+id/btn_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Update Profile"
+        android:layout_marginTop="50dp"
+        android:textColor="#fff"/>
+
+    <Button
+        android:layout_below="@+id/btn_profile"
+        android:id="@+id/btn_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Update Password"
+        android:layout_marginTop="50dp"
+        android:textColor="#fff"/>
+
+</RelativeLayout>

@@ -13,81 +13,55 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.lixnet.mkopo.R;
-import com.example.lixnet.mkopo.adapters.LoanAdapter;
 import com.example.lixnet.mkopo.helpers.GEPreference;
-import com.example.lixnet.mkopo.models.MyLoans;
-import com.example.lixnet.mkopo.retrofit.RetrofitInterface;
-import com.example.lixnet.mkopo.retrofit.ServiceGenerator;
 import com.example.lixnet.mkopo.services.IService;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-
-public class LoanDetailsActivity extends AppCompatActivity {
+public class PaymentDetailsActivity extends AppCompatActivity {
 
     private GEPreference preference;
 
-    TextView amounttxt,datetxt,balancetxt,statustxt,ratetxt;
+    TextView amounttxt,datetxt,instalmenttxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loan_details);
+        setContentView(R.layout.activity_payment_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Bundle bundle = getIntent().getExtras();
         final int id = bundle.getInt("id");
+        final int instalment = bundle.getInt("instalment");
         final double amount = bundle.getDouble("amount");
         final String date = bundle.getString("date");
-        final String status = bundle.getString("status");
-        final double rate = bundle.getDouble("rate");
 
         amounttxt = (TextView)findViewById(R.id.amounttxt);
         datetxt = (TextView)findViewById(R.id.datetxt);
-        balancetxt = (TextView)findViewById(R.id.balancetxt);
-        statustxt = (TextView)findViewById(R.id.statustxt);
-        ratetxt = (TextView)findViewById(R.id.interesttxt);
-
-        if(status.equals("active")){
-            statustxt.setText("Active");
-        }else if(status.equals("rejected")){
-            statustxt.setText("Rejected");
-        }else if(status.equals("pending")){
-            statustxt.setText("Pending");
-        }else if(status.equals("inactive")){
-            statustxt.setText("Paid");
-        }
+        instalmenttxt = (TextView)findViewById(R.id.instalmenttxt);
 
         DecimalFormat formatter = new DecimalFormat("#,##0.00");
         String amt = formatter.format(amount);
-        String bal = formatter.format((amount * rate/100) + amount);
+        String bal = formatter.format((amount * 0.1) + amount);
 
         amounttxt.setText("KES "+amt);
         datetxt.setText(date);
-        ratetxt.setText(rate+"%");
-        balancetxt.setText("KES "+bal);
+        instalmenttxt.setText(String.valueOf(instalment));
 
         preference = new GEPreference(this);
 
-        Button viewLoan = (Button)findViewById(R.id.btn_repay);
+        /*Button viewLoan = (Button)findViewById(R.id.btn_repay);
 
         viewLoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoanDetailsActivity.this, RepaymentActivity.class);
+                Intent intent = new Intent(PaymentDetailsActivity.this, RepaymentActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -121,8 +95,8 @@ public class LoanDetailsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         preference.unsetUser();
                         dialog.dismiss();
-                        stopService(new Intent(LoanDetailsActivity.this, IService.class));
-                        Intent intent = new Intent(LoanDetailsActivity.this, LoginActivity.class);
+                        stopService(new Intent(PaymentDetailsActivity.this, IService.class));
+                        Intent intent = new Intent(PaymentDetailsActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
 

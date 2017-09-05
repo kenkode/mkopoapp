@@ -1,6 +1,7 @@
 package com.example.lixnet.mkopo.activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,16 +13,21 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lixnet.mkopo.R;
-import com.example.lixnet.mkopo.adapters.LoanAdapter;
+import com.example.lixnet.mkopo.adapters.HistoryAdapter;
+import com.example.lixnet.mkopo.data.HistoryData;
+import com.example.lixnet.mkopo.data.PaymentData;
 import com.example.lixnet.mkopo.helpers.GEPreference;
+import com.example.lixnet.mkopo.helpers.Token;
+import com.example.lixnet.mkopo.models.Loanhistory;
 import com.example.lixnet.mkopo.models.MyLoans;
+import com.example.lixnet.mkopo.models.UserAuth;
 import com.example.lixnet.mkopo.retrofit.RetrofitInterface;
 import com.example.lixnet.mkopo.retrofit.ServiceGenerator;
 import com.example.lixnet.mkopo.services.IService;
@@ -33,61 +39,47 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class LoanDetailsActivity extends AppCompatActivity {
+public class LoanRepaymentActivity extends AppCompatActivity {
 
     private GEPreference preference;
 
-    TextView amounttxt,datetxt,balancetxt,statustxt,ratetxt;
+    TextView balance;
+    double amount = 0.00;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loan_details);
+        setContentView(R.layout.activity_loan_repayment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Bundle bundle = getIntent().getExtras();
-        final int id = bundle.getInt("id");
-        final double amount = bundle.getDouble("amount");
-        final String date = bundle.getString("date");
-        final String status = bundle.getString("status");
-        final double rate = bundle.getDouble("rate");
-
-        amounttxt = (TextView)findViewById(R.id.amounttxt);
-        datetxt = (TextView)findViewById(R.id.datetxt);
-        balancetxt = (TextView)findViewById(R.id.balancetxt);
-        statustxt = (TextView)findViewById(R.id.statustxt);
-        ratetxt = (TextView)findViewById(R.id.interesttxt);
-
-        if(status.equals("active")){
-            statustxt.setText("Active");
-        }else if(status.equals("rejected")){
-            statustxt.setText("Rejected");
-        }else if(status.equals("pending")){
-            statustxt.setText("Pending");
-        }else if(status.equals("inactive")){
-            statustxt.setText("Paid");
-        }
-
-        DecimalFormat formatter = new DecimalFormat("#,##0.00");
-        String amt = formatter.format(amount);
-        String bal = formatter.format((amount * rate/100) + amount);
-
-        amounttxt.setText("KES "+amt);
-        datetxt.setText(date);
-        ratetxt.setText(rate+"%");
-        balancetxt.setText("KES "+bal);
-
         preference = new GEPreference(this);
 
-        Button viewLoan = (Button)findViewById(R.id.btn_repay);
+        LinearLayout errorLayout = (LinearLayout) findViewById(R.id.error_layout_price);
+        errorLayout.setVisibility(View.GONE);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.load_prices);
+        balance = (TextView)findViewById(R.id.amount);
 
-        viewLoan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoanDetailsActivity.this, RepaymentActivity.class);
-                startActivity(intent);
-            }
-        });
+        Bundle bundle = getIntent().getExtras();
+        final int id = bundle.getInt("id");
+        amount = bundle.getDouble("amount");
+
+
+        getBalance(id);
+
+        Loanhistory loanhistory = new Loanhistory();
+        loanhistory.setTotal(amount);
+
+        Intent intent = getIntent();
+        //int size = intent.getIntExtra(Constants.NAME, 0);
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Sisi");
+        }
+
+        ListView listView = (ListView) findViewById(R.id.price_list);
+        PaymentData loan = new PaymentData(this);
+        loan.getLoans(id, listView, errorLayout, progressBar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +87,34 @@ public class LoanDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+    }
+
+    private void getBalance(final int id) {
+
+        RetrofitInterface retrofitInterface = ServiceGenerator.getClient().create(RetrofitInterface.class);
+        Call<Loanhistory> balanceCall = retrofitInterface.getBalance(id);
+
+        balanceCall.enqueue(new Callback<Loanhistory>() {
+            @Override
+            public void onResponse(Call<Loanhistory> call, retrofit2.Response<Loanhistory> response) {
+                //dialog.dismiss();
+                Loanhistory bal = response.body();
+                DecimalFormat formatter = new DecimalFormat("#,##0.00");
+                String amt = formatter.format(bal.getTotal());
+                balance.setText("KES "+amt);
+                //confirmPin(userAuth, dialog);
+            }
+
+            @Override
+            public void onFailure(Call<Loanhistory> call, Throwable t) {
+                Toast.makeText(LoanRepaymentActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                //Toast.makeText(LoginActivity.this, id+"\n"+name+"\n"+phn+"\n"+email+"\n", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoanRepaymentActivity.this, LoginActivity.class);
+                startActivity(intent);
+                t.printStackTrace();
+                //dialog.dismiss();
             }
         });
     }
@@ -121,8 +141,8 @@ public class LoanDetailsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         preference.unsetUser();
                         dialog.dismiss();
-                        stopService(new Intent(LoanDetailsActivity.this, IService.class));
-                        Intent intent = new Intent(LoanDetailsActivity.this, LoginActivity.class);
+                        stopService(new Intent(LoanRepaymentActivity.this, IService.class));
+                        Intent intent = new Intent(LoanRepaymentActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
 

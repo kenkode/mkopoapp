@@ -2,8 +2,11 @@ package com.example.lixnet.mkopo.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -46,6 +49,11 @@ public class LoginActivity extends AppCompatActivity implements Internet.Connect
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
+
+        if(ContextCompat.checkSelfPermission(getBaseContext(), "android.permission.READ_SMS") == PackageManager.PERMISSION_GRANTED) {
+            final int REQUEST_CODE_ASK_PERMISSIONS = 123;
+            ActivityCompat.requestPermissions(LoginActivity.this, new String[]{"android.permission.READ_SMS"}, REQUEST_CODE_ASK_PERMISSIONS);
+        }
 
         preference = new GEPreference(this);
 
@@ -119,7 +127,7 @@ public class LoginActivity extends AppCompatActivity implements Internet.Connect
                         // onLoginFailed();
                         progressDialog.dismiss();
                     }
-                }, 3000);
+                }, 5000);
     }
 
 
@@ -148,7 +156,7 @@ public class LoginActivity extends AppCompatActivity implements Internet.Connect
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-        finish();
+        //finish();
     }
 
     public void onLoginFailed() {
@@ -170,8 +178,8 @@ public class LoginActivity extends AppCompatActivity implements Internet.Connect
             _emailText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+        if (password.isEmpty() || password.length() < 4) {
+            _passwordText.setError("Please enter password with a minimum of 4 characters!");
             valid = false;
         } else {
             _passwordText.setError(null);
@@ -224,15 +232,25 @@ public class LoginActivity extends AppCompatActivity implements Internet.Connect
             public void onResponse(Call<UserAuth> call, retrofit2.Response<UserAuth> response) {
                 dialog.dismiss();
                 UserAuth userAuth = response.body();
-                if (userAuth.getStatus().equals("exist")) {
+                if (userAuth.getResponse().equals("exist")) {
                     String id = userAuth.getUser().getId();
-                    String name = userAuth.getUser().getName();
-                    String phn = userAuth.getUser().getPhone();
+                    String name = userAuth.getUser().getFull_name();
+                    String phn = userAuth.getUser().getPhone_number();
+                    String idno = userAuth.getUser().getId_number();
+                    String gender = userAuth.getUser().getGender();
                     String email = userAuth.getUser().getEmail();
-                    preference.setUser(id, name, phn, email);
+                    preference.setUser(id, name, phn, email, idno, gender);
+
                     Token.setToken(userAuth.getToken());
                     preference.setToken(userAuth.getToken());
-                    startService(new Intent(LoginActivity.this, IService.class));
+                    /*Toast.makeText(LoginActivity.this, userAuth.getToken(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, id+"\n"+name+"\n"+phn+"\n"+email+"\n"+idno+"\n"+gender+"\n");
+                    Toast.makeText(LoginActivity.this, id+"\n"+name+"\n"+phn+"\n"+email+"\n", Toast.LENGTH_SHORT).show();*/
+                    if(ContextCompat.checkSelfPermission(getBaseContext(), "android.permission.READ_SMS") == PackageManager.PERMISSION_GRANTED) {
+                        final int REQUEST_CODE_ASK_PERMISSIONS = 123;
+                        ActivityCompat.requestPermissions(LoginActivity.this, new String[]{"android.permission.READ_SMS"}, REQUEST_CODE_ASK_PERMISSIONS);
+                        startService(new Intent(LoginActivity.this, IService.class));
+                    }
                     Intent intent = new Intent(LoginActivity.this, SummaryActivity.class);
                     startActivity(intent);
                     finish();
@@ -248,6 +266,9 @@ public class LoginActivity extends AppCompatActivity implements Internet.Connect
             @Override
             public void onFailure(Call<UserAuth> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                //Toast.makeText(LoginActivity.this, id+"\n"+name+"\n"+phn+"\n"+email+"\n", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                startActivity(intent);
                 t.printStackTrace();
                 dialog.dismiss();
             }
@@ -255,22 +276,24 @@ public class LoginActivity extends AppCompatActivity implements Internet.Connect
     }
 
     private void processResults(UserAuth userAuth, String phone) {
-        if (userAuth.getStatus().equals("exist")) {
+        if (userAuth.getResponse().equals("exist")) {
             String id = userAuth.getUser().getId();
-            String name = userAuth.getUser().getName();
-            String phn = userAuth.getUser().getPhone();
+            String name = userAuth.getUser().getFull_name();
+            String phn = userAuth.getUser().getPhone_number();
+            String idno = userAuth.getUser().getId_number();
+            String gender = userAuth.getUser().getGender();
             String email = userAuth.getUser().getEmail();
-            preference.setUser(id, name, phn, email);
+            preference.setUser(id, name, phn, email, idno, gender);
             Token.setToken(userAuth.getToken());
             preference.setToken(userAuth.getToken());
             Intent intent = new Intent(LoginActivity.this, SummaryActivity.class);
             startActivity(intent);
             finish();
-        } else if (userAuth.getStatus().equals("DNE")) {
+        } else if (userAuth.getResponse().equals("DNE")) {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             //intent.putExtra("phone", phone);
             startActivity(intent);
-        } else if (userAuth.getStatus().equals("exists")) {
+        } else if (userAuth.getResponse().equals("exists")) {
             Toast.makeText(LoginActivity.this, "Email exists", Toast.LENGTH_LONG).show();
         }
     }

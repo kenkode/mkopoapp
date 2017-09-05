@@ -1,17 +1,16 @@
 package com.example.lixnet.mkopo.models;
 
 /**
- * Created by Lixnet on 2017-08-30.
+ * Created by Kenkode PC on 9/2/2017.
  */
 
-public class MyLoans {
+public class Loanstatus {
     int id;
     double loan_amount;
     String status;
     String reason;
     String is_approved;
     String created_at;
-    String balance;
     double rate;
 
     public int getId() {
@@ -60,14 +59,6 @@ public class MyLoans {
 
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
-    }
-
-    public String getBalance() {
-        return balance;
-    }
-
-    public void setBalance(String balance) {
-        this.balance = balance;
     }
 
     public double getRate() {

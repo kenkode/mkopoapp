@@ -10,6 +10,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
     @InjectView(R.id.input_name) EditText _nameText;
     @InjectView(R.id.input_email) EditText _emailText;
     @InjectView(R.id.input_phone) EditText _phoneText;
+    @InjectView(R.id.input_idnumber) EditText _idnoText;
+    @InjectView(R.id.input_gender) Spinner _genderText;
     @InjectView(R.id.input_password) EditText _passwordText;
     @InjectView(R.id.input_confpassword) EditText _confpasswordText;
     @InjectView(R.id.btn_signup) Button _signupButton;
@@ -82,10 +85,11 @@ public class RegisterActivity extends AppCompatActivity {
         String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String phone = _phoneText.getText().toString();
-        //String password = _passwordText.getText().toString();
+        String idno = _idnoText.getText().toString();
+        String gender = _genderText.getSelectedItem().toString();
         String confpassword = _confpasswordText.getText().toString();
 
-        User user = new User(name, email, phone, confpassword);
+        User user = new User(name, email, phone, idno, gender, confpassword);
         addUser(user, progressDialog);
 
         // TODO: Implement your own signup logic here.
@@ -117,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
                 //Toast.makeText(RegisterActivity.this, userJson, Toast.LENGTH_LONG).show();
                 Log.e(TAG, userJson);
                 UserAuth user = response.body();
-                if (user.getStatus().equals("exist")){
+                if (user.getResponse().equals("exist")){
                     Toast.makeText(RegisterActivity.this, "You already have an account!", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(RegisterActivity.this, "Account Successfully created!", Toast.LENGTH_LONG).show();
@@ -151,7 +155,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
-        finish();
+        //finish();
     }
 
     public void onSignupFailed() {
@@ -166,6 +170,7 @@ public class RegisterActivity extends AppCompatActivity {
         String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String phone = _phoneText.getText().toString();
+        String idno = _idnoText.getText().toString();
         String password = _passwordText.getText().toString();
         String confpassword = _confpasswordText.getText().toString();
 
@@ -181,6 +186,13 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
         } else {
             _emailText.setError(null);
+        }
+
+        if (idno.isEmpty()) {
+            _idnoText.setError("Please enter your national identity number!");
+            valid = false;
+        } else {
+            _idnoText.setError(null);
         }
 
         if (phone.isEmpty() || !Patterns.PHONE.matcher(phone).matches()) {
@@ -208,12 +220,14 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void processResults(UserAuth user) {
-        if (user.getStatus().equals("created")) {
+        if (user.getResponse().equals("created")) {
             String id = user.getUser().getId();
-            String name = user.getUser().getName();
-            String phn = user.getUser().getPhone();
+            String name = user.getUser().getFull_name();
+            String phn = user.getUser().getPhone_number();
             String email = user.getUser().getEmail();
-            preference.setUser(id, name, phn, email);
+            String idno = user.getUser().getId_number();
+            String gender = user.getUser().getGender();
+            preference.setUser(id, name, phn, email, idno, gender);
             Token.setToken(user.getToken());
             preference.setToken(user.getToken());
             Intent intent = new Intent(RegisterActivity.this, SummaryActivity.class);

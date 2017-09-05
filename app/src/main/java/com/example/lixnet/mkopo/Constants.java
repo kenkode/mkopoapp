@@ -8,19 +8,17 @@ public class Constants {
 
     public static final String LOAN_TYPES = "loan_types";
 
-    public static final String GET_LOAN = "my_orders";
-
-    public static final String USER_DETAILS = "user_details";
-
-    public static final String LOAN_DETAILS = "loan_details";
-
     public static final String LOAN_HISTORY = "loan_history";
 
     public static final String GET_LOANS = "get_loans";
 
+    public static final String GET_APPROVED_LOANS = "get_approved_loans";
+
     public static final String LOAN_STATUS = "loan_status";
 
-    public static final String APPLY_LOAN = "/mkopo/public/apply_loan";
+    public static final String APPLY_LOAN = "apply_loan";
+
+    public static final String GET_BALANCE = "get_balance";
 
     public static final String SAVE_SMS = "add_sms";
 

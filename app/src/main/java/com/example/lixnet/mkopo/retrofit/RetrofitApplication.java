@@ -8,6 +8,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.lixnet.mkopo.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -20,6 +21,7 @@ import retrofit.Retrofit;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.google.gson.Gson;
@@ -39,12 +41,12 @@ public class RetrofitApplication extends Application {
     private static Context sStaticContext;
     private LoanAPI taskServiceAPI;
     //private static final String BASE_URL = "http://45.55.201.219/mkopo/public/";
-    //private static final String BASE_URL = "http://10.0.2.2:81/mkopo/public/";
+    //private static final String BASE_URL = "http://10.0.2.2/mkopo/public";
+    //public static final String BASE_URL = "http://192.168.56.1/mkopo/public";
     /**
      * Gets a reference to the application context
      */
-
-    private static final String BASE_URL = "http://loans.prioritymobile.co.ke/public/";
+    private static final String BASE_URL = "http://loans.prioritymobile.co.ke/public";
 
     public static Context getStaticContext() {
         if (sStaticContext != null) {

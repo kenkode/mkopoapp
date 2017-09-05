@@ -1,4 +1,4 @@
-package com.example.lixnet.mkopo.models;
+package com.example.lixnet.mkopo.data;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
@@ -7,7 +7,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.example.lixnet.mkopo.adapters.HistoryAdapter;
 import com.example.lixnet.mkopo.adapters.LoanAdapter;
+import com.example.lixnet.mkopo.models.Loanhistory;
+import com.example.lixnet.mkopo.models.MyLoans;
 import com.example.lixnet.mkopo.retrofit.RetrofitInterface;
 import com.example.lixnet.mkopo.retrofit.ServiceGenerator;
 
@@ -18,13 +21,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 /**
- * Created by Lixnet on 2017-08-30.
+ * Created by Kenkode PC on 9/2/2017.
  */
 
-public class LoanData {
+public class HistoryData {
     private final Context context;
 
-    public LoanData(Context context) {
+    public HistoryData(Context context) {
         this.context = context;
     }
 
@@ -34,7 +37,7 @@ public class LoanData {
 
         RetrofitInterface retrofitInterface = ServiceGenerator.getClient().create(RetrofitInterface.class);
 
-        Call<List<MyLoans>> retroGases = retrofitInterface.getAllLoans(userid);
+        Call<List<MyLoans>> retroGases = retrofitInterface.getApprovedLoans(userid);
 
         retroGases.enqueue(new Callback<List<MyLoans>>() {
             @Override
@@ -49,7 +52,7 @@ public class LoanData {
                     errorLinear.setVisibility(View.GONE);
                 }
                 loadPrice.setVisibility(View.GONE);
-                LoanAdapter adapter = new LoanAdapter(context, rLoans);
+                HistoryAdapter adapter = new HistoryAdapter(context, rLoans);
                 listView.setAdapter(adapter);
             }
 
@@ -77,3 +80,4 @@ public class LoanData {
     }
 
 }
+

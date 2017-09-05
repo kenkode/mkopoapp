@@ -2,7 +2,6 @@ package com.example.lixnet.mkopo.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +11,26 @@ import android.widget.TextView;
 
 import com.example.lixnet.mkopo.R;
 import com.example.lixnet.mkopo.activities.LoanDetailsActivity;
+import com.example.lixnet.mkopo.models.Loanstatus;
 import com.example.lixnet.mkopo.models.MyLoans;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
- * Created by Lixnet on 2017-08-30.
+ * Created by Kenkode PC on 9/2/2017.
  */
 
-public class LoanAdapter  extends BaseAdapter {
-    private final ArrayList<MyLoans> loans;
+public class StatusAdapter extends BaseAdapter {
+    private final ArrayList<Loanstatus> loans;
     private final LayoutInflater inflater;
     private final Context context;
 
-    public LoanAdapter(Context context, ArrayList<MyLoans> loans) {
+    public StatusAdapter(Context context, ArrayList<Loanstatus> loans) {
         this.loans = loans;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -50,10 +54,10 @@ public class LoanAdapter  extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null) {
-            convertView = inflater.inflate(R.layout.loanmodel, null);
+            convertView = inflater.inflate(R.layout.loanstatus_model, null);
         }
 
-        final MyLoans loan = loans.get(position);
+        final Loanstatus loan = loans.get(position);
         /*final Gas gas = new Gas();
         gas.setId(rGas.getId());
         gas.setName(rGas.getName());
@@ -61,11 +65,13 @@ public class LoanAdapter  extends BaseAdapter {
         //gas.setSize(rGas.getSize());
 
         final TextView amount= (TextView) convertView.findViewById(R.id.amount);
+
         final TextView status= (TextView) convertView.findViewById(R.id.status);
 
-        Button viewLoan = (Button) convertView.findViewById(R.id.btn_view);
+        final TextView date= (TextView) convertView.findViewById(R.id.date);
 
-        viewLoan.setOnClickListener(new View.OnClickListener() {
+
+        /*viewLoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, LoanDetailsActivity.class);
@@ -74,10 +80,9 @@ public class LoanAdapter  extends BaseAdapter {
                 intent.putExtra("amount",loan.getLoan_amount());
                 intent.putExtra("status",loan.getStatus());
                 intent.putExtra("date",loan.getCreated_at());
-                intent.putExtra("rate",loan.getRate());
                 context.startActivity(intent);
             }
-        });
+        });*/
 
 
         DecimalFormat formatter = new DecimalFormat("#,##0.00");
@@ -91,6 +96,18 @@ public class LoanAdapter  extends BaseAdapter {
             status.setText("Pending");
         }else if(loan.getStatus().equals("inactive")){
             status.setText("Paid");
+        }
+
+        try {
+            DateFormat outputFormat = new SimpleDateFormat("dd/MMM/yyyy");
+            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            String inputText = loan.getCreated_at();
+            Date d = inputFormat.parse(inputText);
+            String outputText = outputFormat.format(d);
+            date.setText(outputText);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         return convertView;

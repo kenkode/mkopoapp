@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -29,7 +30,7 @@ public class ServiceGenerator {
     private static Retrofit retrofit;
 
     //private static final String BASE_URL = "http://45.55.201.219/mkopo/public/";
-    //private static final String BASE_URL = "http://10.0.2.2:81/mkopo/public/";
+    //private static final String BASE_URL = "http://10.0.2.2/mkopo/public/";
     private static final String BASE_URL = "http://loans.prioritymobile.co.ke/public/";
 
     private static final OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -46,6 +47,7 @@ public class ServiceGenerator {
                 HttpUrl originalHttpUrl = original.url();
 
                 HttpUrl url = originalHttpUrl.newBuilder()
+                        //.addQueryParameter("token", Token.getToken())
                         .addQueryParameter("token", Token.getToken())
                         .build();
 
@@ -59,10 +61,16 @@ public class ServiceGenerator {
         });
 
         if(retrofit == null) {
+
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .connectTimeout(5, TimeUnit.MINUTES)
+                    .readTimeout(5, TimeUnit.MINUTES).build();
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(httpClient.build())
+                   // .client(httpClient.build())
+                    .client(client)
                     .build();
         }
         return retrofit;

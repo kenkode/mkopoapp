@@ -17,6 +17,6 @@ public interface LoanAPI {
     @POST(Constants.APPLY_LOAN)
     Call<Pojodemo> serverCall(
 
-            @Field("user_id") String user_id,
+            @Field("loanee_id") String loanee_id,
             @Field("amount") double amount );
 }

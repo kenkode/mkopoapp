@@ -3,11 +3,13 @@ package com.example.lixnet.mkopo.services;
 import android.app.Service;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -49,6 +51,7 @@ public class IService extends Service {
         //getting systems default ringtone
         Toast.makeText(getApplicationContext(),"Start Sms activity",Toast.LENGTH_SHORT).show();
         getAllSms();
+
         //we have some options for service
         //start sticky means service will be explicity started and stopped
         return START_STICKY;
@@ -358,6 +361,7 @@ public class IService extends Service {
                 //lstSms.add(objSms);
             }
         }
+
         // else {
         // throw new RuntimeException("You have no SMS");
         // }

@@ -55,9 +55,9 @@ public class LoanApplicationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         preference = new GEPreference(this);
+
+        //Toast.makeText(this, preference.getUser().get(GEPreference.USER_ID),Toast.LENGTH_LONG).show();
 
         loan500 = (CardView)findViewById(R.id.loan500);
         loan1000 = (CardView)findViewById(R.id.loan1000);
@@ -273,7 +273,64 @@ public class LoanApplicationActivity extends AppCompatActivity {
         });
     }
 
-    public void applyLoan(final String userid, final double amount, final ProgressDialog progressDialog)
+    private void applyLoan(final String userid, final double amount, final ProgressDialog progressDialog) {
+
+        RetrofitInterface retrofitInterface = ServiceGenerator.getClient().create(RetrofitInterface.class);
+        Gson gson = GsonHelper.getBuilder().create();
+        //final String userJson = gson.toJson(user);
+        //Toast.makeText(RegisterActivity.this, userJson, Toast.LENGTH_LONG).show();
+        retrofit2.Call<Loan> addLoan = retrofitInterface.applyLoan(userid, amount);
+
+        addLoan.enqueue(new retrofit2.Callback<Loan>() {
+            @Override
+            public void onResponse(retrofit2.Call<Loan> call, retrofit2.Response<Loan> response) {
+                //Toast.makeText(RegisterActivity.this, userJson, Toast.LENGTH_LONG).show();
+                Log.e(TAG, userid);
+                Loan loan = response.body();
+                if (loan.getSuccess()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoanApplicationActivity.this);
+                    builder.setMessage("Loan Application Successful!")
+                            .setTitle("Success Message")
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                    Intent i = new Intent(LoanApplicationActivity.this, LoansActivity.class);
+                    startActivity(i);
+
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoanApplicationActivity.this);
+                    builder.setMessage("Something went wrong!")
+                            .setTitle("Error Message")
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                //confirmPin(user, progressDialog);
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<Loan> call, Throwable t) {
+                t.printStackTrace();
+                //Toast.makeText(RegisterActivity.this, userJson, Toast.LENGTH_LONG).show();
+                Log.e(TAG, userid);
+                progressDialog.dismiss();
+                Snackbar snackbar = Snackbar.make(loan500, "Something went wrong", Snackbar.LENGTH_LONG);
+                snackbar.setAction("Retry", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        progressDialog.show();
+                        applyLoan(userid, amount, progressDialog);
+                    }
+                });
+                snackbar.show();
+            }
+        });
+
+    }
+
+    public void addLoan(final String userid, final double amount, final ProgressDialog progressDialog)
     {
         // call InterFace
         LoanAPI registerAPI=((RetrofitApplication) getApplication()).getMshoppinpApis();

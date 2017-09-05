@@ -19,4 +19,18 @@
         <item>6.Enter your Mpesa pin and Confirm request</item>
         <item>7.You will receive an SMS from Mpesa to confirm the transaction</item>
     </string-array>
+
+    <string-array name="array_gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string name="title_activity_loan_history">LoanHistoryActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_loan_status">LoanStatusActivity</string>
+    <string name="title_activity_loan_repayment">LoanRepaymentActivity</string>
+    <string name="title_activity_payment_details">PaymentDetailsActivity</string>
+    <string name="title_activity_status_details">StatusDetailsActivity</string>
+    <string name="title_activity_update_profile">UpdateProfileActivity</string>
+    <string name="title_activity_update_password">UpdatePasswordActivity</string>
 </resources>

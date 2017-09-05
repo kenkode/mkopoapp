@@ -2,7 +2,6 @@ package com.example.lixnet.mkopo.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +11,23 @@ import android.widget.TextView;
 
 import com.example.lixnet.mkopo.R;
 import com.example.lixnet.mkopo.activities.LoanDetailsActivity;
+import com.example.lixnet.mkopo.activities.LoanRepaymentActivity;
+import com.example.lixnet.mkopo.models.Loanhistory;
 import com.example.lixnet.mkopo.models.MyLoans;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
- * Created by Lixnet on 2017-08-30.
+ * Created by Kenkode PC on 9/2/2017.
  */
 
-public class LoanAdapter  extends BaseAdapter {
+public class HistoryAdapter extends BaseAdapter{
     private final ArrayList<MyLoans> loans;
     private final LayoutInflater inflater;
     private final Context context;
 
-    public LoanAdapter(Context context, ArrayList<MyLoans> loans) {
+    public HistoryAdapter(Context context, ArrayList<MyLoans> loans) {
         this.loans = loans;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -68,21 +69,16 @@ public class LoanAdapter  extends BaseAdapter {
         viewLoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, LoanDetailsActivity.class);
+                Intent intent = new Intent(context, LoanRepaymentActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("id",loan.getId());
                 intent.putExtra("amount",loan.getLoan_amount());
                 intent.putExtra("status",loan.getStatus());
                 intent.putExtra("date",loan.getCreated_at());
-                intent.putExtra("rate",loan.getRate());
                 context.startActivity(intent);
             }
         });
 
-
-        DecimalFormat formatter = new DecimalFormat("#,##0.00");
-        String amt = formatter.format(loan.getLoan_amount());
-        amount.setText("KES "+amt);
         if(loan.getStatus().equals("active")){
             status.setText("Active");
         }else if(loan.getStatus().equals("rejected")){
@@ -92,6 +88,10 @@ public class LoanAdapter  extends BaseAdapter {
         }else if(loan.getStatus().equals("inactive")){
             status.setText("Paid");
         }
+
+        DecimalFormat formatter = new DecimalFormat("#,##0.00");
+        String amt = formatter.format(loan.getLoan_amount());
+        amount.setText("KES "+amt);
 
         return convertView;
 

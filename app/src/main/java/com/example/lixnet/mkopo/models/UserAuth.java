@@ -2,24 +2,24 @@ package com.example.lixnet.mkopo.models;
 
 public class UserAuth {
 
-    private String status;
+    private String response;
     private String pin;
     private User user;
     private String token;
 
-    public UserAuth(String status, User user, String token) {
-        this.status = status;
+    public UserAuth(String response, User user, String token) {
+        this.response = response;
         //this.pin = pin;
         this.user = user;
         this.token = token;
     }
 
-    public String getStatus() {
-        return status;
+    public String getResponse() {
+        return response;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setResponse(String response) {
+        this.response = response;
     }
 
     public String getPin() {

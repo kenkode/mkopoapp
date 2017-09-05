@@ -18,13 +18,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.lixnet.mkopo.Constants;
 import com.example.lixnet.mkopo.R;
 import com.example.lixnet.mkopo.helpers.GEPreference;
 import com.example.lixnet.mkopo.models.Loan;
+import com.example.lixnet.mkopo.models.Loanhistory;
 import com.example.lixnet.mkopo.services.IService;
 import com.example.lixnet.mkopo.services.SmsIntentService;
 import com.example.lixnet.mkopo.services.smsService;
+
 
 public class SummaryActivity extends AppCompatActivity{
 
@@ -39,6 +43,8 @@ public class SummaryActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
         preference = new GEPreference(this);
+
+        //Toast.makeText(this, BASE_URL + Constants.APPLY_LOAN, Toast.LENGTH_LONG).show();
 
         applyloan = (CardView)findViewById(R.id.apply_loan_card);
         status = (CardView)findViewById(R.id.loan_status);
@@ -63,6 +69,57 @@ public class SummaryActivity extends AppCompatActivity{
             }
         });
 
+        summary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SummaryActivity.this, LoanHistoryActivity.class);
+                startActivity(i);
+            }
+        });
+
+        status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SummaryActivity.this, LoanStatusActivity.class);
+                startActivity(i);
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SummaryActivity.this, ProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SummaryActivity.this);
+                builder.setTitle("Confirm");
+                builder.setMessage("Are you sure you want to log out?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        preference.unsetUser();
+                        dialog.dismiss();
+                        stopService(new Intent(SummaryActivity.this, IService.class));
+                        Intent intent = new Intent(SummaryActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                    }
+                })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                builder.show();
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

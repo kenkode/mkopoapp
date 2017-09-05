@@ -7,7 +7,11 @@ package com.example.lixnet.mkopo.retrofit;
 import com.example.lixnet.mkopo.Constants;
 import com.example.lixnet.mkopo.models.Loan;
 import com.example.lixnet.mkopo.models.LoanType;
+import com.example.lixnet.mkopo.models.Loanhistory;
+import com.example.lixnet.mkopo.models.Loanstatus;
 import com.example.lixnet.mkopo.models.MyLoans;
+import com.example.lixnet.mkopo.models.Password;
+import com.example.lixnet.mkopo.models.Profile;
 import com.example.lixnet.mkopo.models.Sms;
 import com.example.lixnet.mkopo.models.User;
 import com.example.lixnet.mkopo.models.UserAuth;
@@ -32,34 +36,34 @@ public interface RetrofitInterface {
     @GET(Constants.AUTH_USER)
     Call<UserAuth> authUser(@Query("username") String username, @Query("password") String password);
 
+    @GET(Constants.APPLY_LOAN)
+    Call<Loan> applyLoan(@Query("loanee_id") String loanee_id, @Query("amount") double amount);
+
     @GET(Constants.LOAN_TYPES)
     Call<List<LoanType>> getLoanTypes();
 
-    @GET(Constants.LOAN_DETAILS)
-    Call<MyLoans> getLoanDetails(@Query("id") int id );
-
     @GET(Constants.LOAN_HISTORY)
-    Call<List<Loan>> getLoanHistory(@Query("id") String user_id);
+    Call<List<Loanhistory>> getLoanHistory(@Query("loan_id") int loan_id);
 
     @GET(Constants.LOAN_STATUS)
-    Call<List<Loan>> getLoanHistory(@Query("id") int user_id);
+    Call<List<Loanstatus>> getLoanStatus(@Query("user_id") String user_id);
 
     @GET(Constants.GET_LOANS)
     Call<List<MyLoans>> getAllLoans(@Query("user_id") String user_id);
 
-    @GET(Constants.GET_LOAN)
-    Call<List<Loan>> getLoan(@Query("id") int user_id);
+    @GET(Constants.GET_BALANCE)
+    Call<Loanhistory> getBalance(@Query("id") int id);
+
+    @GET(Constants.GET_APPROVED_LOANS)
+    Call<List<MyLoans>> getApprovedLoans(@Query("user_id") String user_id);
 
     @GET(Constants.SAVE_SMS)
     Call<Sms> saveSMS(@Query("sms") String sms);
 
-    @GET(Constants.USER_DETAILS)
-    Call<List<User>> getUser(@Query("id") int user_id);
-
     @GET(Constants.UPDATE_USER)
-    Call<List<User>> updateUser(@Query("id") int user_id, @Query("email") String email, @Query("phone") String phone);
+    Call<UserAuth> updateUser(@Query("user") String user);
 
     @GET(Constants.UPDATE_PASSWORD)
-    Call<List<User>> updatePassword(@Query("id") int user_id, @Query("password") String password);
+    Call<Password> updatePassword(@Query("id") String id, @Query("current_password") String current_password, @Query("confirm_password") String confirm_password);
 
 }

@@ -18,7 +18,7 @@ import android.widget.ProgressBar;
 
 import com.example.lixnet.mkopo.R;
 import com.example.lixnet.mkopo.helpers.GEPreference;
-import com.example.lixnet.mkopo.models.LoanData;
+import com.example.lixnet.mkopo.data.LoanData;
 import com.example.lixnet.mkopo.services.IService;
 
 public class LoansActivity extends AppCompatActivity {

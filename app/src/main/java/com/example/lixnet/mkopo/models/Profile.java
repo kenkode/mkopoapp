@@ -2,8 +2,11 @@ package com.example.lixnet.mkopo.models;
 
 import com.google.gson.annotations.Expose;
 
-public class User {
+/**
+ * Created by Kenkode PC on 9/4/2017.
+ */
 
+public class Profile {
     @Expose
     private String id;
     @Expose
@@ -17,15 +20,15 @@ public class User {
     @Expose
     private String phone_number;
     @Expose
-    private String pin;
+    private String response;
 
-    public User(String full_name, String email, String phone_number, String id_number, String gender, String pin) {
+    public Profile(String id, String full_name, String email, String phone_number, String id_number, String gender) {
+        this.id = id;
         this.full_name = full_name;
         this.email = email;
         this.phone_number = phone_number;
         this.id_number = id_number;
         this.gender = gender;
-        this.pin = pin;
     }
 
     public String getId() {
@@ -76,11 +79,11 @@ public class User {
         this.phone_number = phone_number;
     }
 
-    public String getPin() {
-        return pin;
+    public String getResponse() {
+        return response;
     }
 
-    public void setPin(String pin) {
-        this.pin = pin;
+    public void setResponse(String response) {
+        this.response = response;
     }
 }

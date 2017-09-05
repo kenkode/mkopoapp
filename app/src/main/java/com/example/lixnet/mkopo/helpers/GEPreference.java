@@ -7,19 +7,22 @@ package com.example.lixnet.mkopo.helpers;
 
         import android.content.Context;
         import android.content.SharedPreferences;
+        import android.util.Log;
 
         import java.util.HashMap;
         import java.util.Map;
 
 public class GEPreference {
 
-    private static final String USER_EMAIL = "user_email";
+    public static final String USER_EMAIL = "user_email";
     private final SharedPreferences sharedPreferences;
     private final SharedPreferences.Editor editor;
     private static final String PREFERENCES = "ge_prefs";
     private static final String SPLASH_SHOWN = "splash_shown";
     public static final String USER_ID = "user_id";
     public static final String USER_PHONE= "user_phone";
+    public static final String USER_IDNO= "user_idno";
+    public static final String USER_GENDER= "user_gender";
     private static final String USER_LOGGED = "user_logged";
     public static final String USER_NAME = "user_name";
 
@@ -28,6 +31,7 @@ public class GEPreference {
 
     public GEPreference(Context context) {
         sharedPreferences = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+
         editor = sharedPreferences.edit();
     }
 
@@ -50,12 +54,16 @@ public class GEPreference {
     }
 
     // User preference
-    public void setUser(String id, String name, String phone, String email) {
+    public void setUser(String id, String full_name, String phone_number, String email, String id_number, String gender) {
         editor.putString(USER_ID, id);
-        editor.putString(USER_NAME, name);
-        editor.putString(USER_PHONE, phone);
+        editor.putString(USER_NAME, full_name);
+        editor.putString(USER_PHONE, phone_number);
         editor.putString(USER_EMAIL, email);
+        editor.putString(USER_IDNO, id_number);
+        editor.putString(USER_GENDER, gender);
         editor.putBoolean(USER_LOGGED, true);
+        Log.d(USER_ID, id);
+        Log.d("ASS", "ASS");
         editor.apply();
     }
 
@@ -70,8 +78,12 @@ public class GEPreference {
         user.put(USER_NAME, sharedPreferences.getString(USER_NAME, ""));
         user.put(USER_PHONE, sharedPreferences.getString(USER_PHONE, ""));
         user.put(USER_EMAIL, sharedPreferences.getString(USER_EMAIL, ""));
+        user.put(USER_IDNO, sharedPreferences.getString(USER_IDNO, ""));
+        user.put(USER_GENDER, sharedPreferences.getString(USER_GENDER, ""));
         return user;
     }
+
+
 
     public boolean isUserLogged() {
         return sharedPreferences.getBoolean(USER_LOGGED, false);
